@@ -1,0 +1,63 @@
+HARK のインストール方法
+HARK wiki 参照
+http://winnie.kuis.kyoto-u.ac.jp/HARK/wiki.cgi?page=HARK+Installation+Instructions
+
+概要
+このファイル群は, 第5回 HARK 講習会 <practice 2> にて使用されたものである (2010年 京都大学にて開催).
+
+使い方
+
+(1) Julius を実行して, 'result.txt' に結果を保存する
+julius_mft -C julius.conf 2>&1 | tee result.txt
+
+(2) HARK を実行
+./recog.n 3sp_multi.wav loc_tf sep_tf
+
+(3) 結果を確かめる
+./score.py result.txt transcription_list1.txt 60 10
+./score.py result.txt transcription_list2.txt -60 10
+./score.py result.txt transcription_list3.txt 0 10
+
+(4) 分離音を確認する
+ a) raw ファイルを wav ファイルに変換
+./sw2wav.py . wav/ | sh
+ 
+ b) 音を再生
+play wav/NR0.wav
+
+File の説明
+3sp_multi.wav: 8チャンネル 3話者混合音声信号
+allTriphones: Julius 用音響モデルのひとつ
+hmmdefs.gz: Julius 用音響モデルのひとつ
+julius.conf: Julius 設定ファイル
+ -input mfcnet に設定されている
+ -module は指定されていない
+loc_tf: localizeMUSIC (定位) 用の伝達関数. harktool3 を用いて作成.
+order.*: Julius 用言語モデル
+sep_tf: GHDSS (分離) 用の伝達関数. harktool3 を用いて作成
+transcription_list{1-3}.txt: 3sp_multi.wav に収録された3話者発話の正解データ. それぞれ 60, -60, 0 度方向の発話に対応.
+
+Script の説明
+recog.n: Flowdesigner で作成したネットワークファイル
+ 使い方:  ./recog.n AUDIO_FILE TF_LOCALIZATION(A_MATRIX) TF_SEPARATION(TF_CONJ)
+ 各種パラメータは以下の通り
+  NUM_SOURCES(LocalizeMUSIC): 3
+  THRESH(SourceTracker): 29.5
+  GHDSS: Adaptive, Full, Adaptive
+  LX(HRLE): 0.5
+  WN_LEVEL(WhiteNoiseAdder): 300
+ 
+score.py: 評価用スクリプト
+ 使い方: ./score.py JULIUS_RESULT TRANSCRIPTION SRC_DIRECTION DIRECTION_MARGIN
+  音声認識率を計算: 幅 DIRECTION_MARGIN を持って SRC_DIRECTION 方向からの発話を対象に計算.
+
+sw2wav.py: sw ファイルを wav ファイルに変換するためのスクリプト
+ 使い方: ./sw2wav.py SRC_DIR OUT_DIR | sh
+  SRC_DIR ディレクトリに入っている .sw ファイルを全て wave 形式にし, OUT_DIR に保存.
+  変換し終わった .sw ファイルは自動的に消去される.
+  もし, .sw ファイルを残しておきたい場合, 次のように引数を追加して実行する  './sw2wav.py SRC_DIR OUT_DIR 0 | sh'.
+  3番目の引数の値に意味はなく, 追加することで .sw ファイルが残るようになる.
+  このスクリプトは sox を利用する変換コマンドを利用するので, 
+  sh や bash にパイプして実行する必要がある: '| sh'
+
+
