@@ -1,0 +1,9 @@
+# MICARY-LocationFile generated from harktool by user.
+# DateTime: 2012/03/05 19:05:06
+MICARY-LocationFile
+Version = 1.0
+NumOfPosition = 4
+Position  0,  0.0000, -0.1150,  0.0000
+Position  1,  0.0000,  0.0350,  0.0000
+Position  2,  0.0000,  0.0750,  0.0000
+Position  3,  0.0000,  0.1150,  0.0000

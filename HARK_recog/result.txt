@@ -1,0 +1,930 @@
+STAT: include config: julius.conf
+STAT: loading plugins at "/usr/lib/julius_plugin":
+STAT: file: calcmix_none.jpi        #0 [Gaussian calculation plugin for Julius.(ADD_MASK_TO_NONE)]
+STAT: file: calcmix_beam.jpi        #1 [Gaussian calculation plugin for Julius.(ADD_MASK_TO_BEAM)]
+STAT: file: mfcnet.jpi              #2 [Feature vector input plugin for Julius.(MFCNET)]
+STAT: file: calcmix_safe.jpi        #3 [Gaussian calculation plugin for Julius.(ADD_MASK_TO_SAFE)]
+STAT: file: calcmix_heu.jpi         #4 [Gaussian calculation plugin for Julius.(ADD_MASK_TO_HEU)]
+STAT: 5 files loaded
+STAT: jconf successfully finalized
+STAT: *** loading AM00 _default
+Stat: init_phmm: Reading in HMM definition
+Stat: rdhmmdef: ascii format HMM definition
+Stat: rdhmmdef: limit check passed
+Stat: rdhmmdef: this HMM does not need multipath handling
+Stat: init_phmm: defined HMMs:  7925
+Stat: init_phmm: loading ascii hmmlist
+Stat: init_phmm: logical names: 20468 in HMMList
+Stat: init_phmm: base phones:    42 used in logical
+Stat: init_phmm: finished reading HMM definitions
+STAT: making pseudo bi/mono-phone for IW-triphone
+Stat: hmm_lookup: 18 pseudo phones are added to logical HMM list
+STAT: *** AM00 _default loaded
+STAT: *** loading LM00 _default
+STAT: reading [order.dfa] and [order.dict]...
+Stat: init_voca: read 33 words
+STAT: done
+STAT: Gram #0 order registered
+STAT: Gram #0 order: new grammar loaded, now mash it up for recognition
+STAT: Gram #0 order: extracting category-pair constraint for the 1st pass
+STAT: Gram #0 order: installed
+STAT: multigram_exec_activate() hook = 2
+STAT: Gram #0 order: turn on active
+STAT: grammar update completed
+STAT: *** LM00 _default loaded
+STAT: ------
+STAT: All models are ready, go for final fusion
+STAT: [1] create MFCC extraction instance(s)
+STAT: [2] create recognition processing instance(s) with AM and LM
+STAT: composing recognizer instance SR00 _default (AM00 _default, LM00 _default)
+STAT: Building HMM lexicon tree
+STAT: lexicon size: 1080+0=1080
+STAT: coordination check passed
+STAT: wchmm (re)build completed
+STAT: SR00 _default composed
+STAT: [3] initialize for acoustic HMM calculation
+Stat: outprob_init: state-level mixture PDFs, use calc_mix()
+Stat: addlog: generating addlog table (size = 1953 kB)
+Stat: addlog: addlog table generated
+STAT: [4] prepare MFCC storage(s)
+STAT: All init successfully done
+
+semaphor open succeded. value is 1.
+Stat: server-client: socket ready as server
+----------------------- System Information begin ---------------------
+JuliusLib rev.4.2.3 (fast)
+
+Engine specification:
+ -  Base setup   : fast
+ -  Supported LM : DFA, N-gram, Word
+ -  Extension    : WordsInt LibSndFile
+ -  Compiled by  : gcc -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security
+
+------------------------------------------------------------
+Configuration of Modules
+
+ Number of defined modules: AM=1, LM=1, SR=1
+
+ Acoustic Model (with input parameter spec.):
+ - AM00 "_default"
+	hmmfilename=hmmdefs.gz
+	hmmmapfilename=allTriphones
+
+ Language Model:
+ - LM00 "_default"
+	grammar #1:
+	    dfa  = order.dfa
+	    dict = order.dict
+
+ Recognizer:
+ - SR00 "_default" (AM00, LM00)
+
+------------------------------------------------------------
+Acoustic Model(s)
+
+[AM00 "_default"]
+
+ HMM Info:
+    7925 models, 2000 states, 2000 mpdfs, 32000 Gaussians are defined
+	      model type = context dependency handling ON
+      training parameter = USER
+	   vector length = 27
+	number of stream = 1
+	     stream info = [0-26]
+	cov. matrix type = DIAGC
+	   duration type = NULLD
+	max mixture size = 16 Gaussians
+     max length of model = 5 states
+     logical base phones = 42
+       model skip trans. = not exist, no multi-path handling
+
+ AM Parameters:
+        Gaussian pruning = safe  (-gprune)
+  top N mixtures to calc = 2 / 0  (-tmix)
+    short pause HMM name = "sp" specified, "sp" applied (physical)  (-sp)
+  cross-word CD on pass1 = handle by approx. (use average prob. of same LC)
+
+------------------------------------------------------------
+Language Model(s)
+
+[LM00 "_default"] type=grammar
+
+ DFA grammar info:
+      4 nodes, 3 arcs, 3 terminal(category) symbols
+      category-pair matrix: 20 bytes (448 bytes allocated)
+
+ Vocabulary Info:
+        vocabulary size  = 33 words, 381 models
+        average word len = 11.5 models, 34.6 states
+       maximum state num = 102 nodes per word
+       transparent words = not exist
+       words under class = not exist
+
+ Parameters:
+   found sp category IDs = 2
+
+------------------------------------------------------------
+Recognizer(s)
+
+[SR00 "_default"]  AM00 "_default"  +  LM00 "_default"
+
+ Lexicon tree:
+	 total node num =   1080
+	  root node num =     26
+	  leaf node num =     33
+
+	(-penalty1) IW penalty1 = +0.0
+	(-penalty2) IW penalty2 = +0.0
+	(-cmalpha)CM alpha coef = 0.050000
+
+ Search parameters: 
+	    multi-path handling = no
+	(-b) trellis beam width = 1000
+	(-bs)score pruning thres= disabled
+	(-n)search candidate num= 1
+	(-s)  search stack size = 500
+	(-m)    search overflow = after 2000 hypothesis poped
+	        2nd pass method = searching sentence, generating N-best
+	(-b2)  pass2 beam width = 30
+	(-lookuprange)lookup range= 5  (tm-5 <= t <tm+5)
+	(-sb)2nd scan beamthres = 500.0 (in logscore)
+	(-n)        search till = 1 candidates found
+	(-output)    and output = 1 candidates out of above
+	 IWCD handling:
+	   1st pass: approximation (use average prob. of same LC)
+	   2nd pass: loose (apply when hypo. is popped and scanned)
+	 all possible words will be expanded in 2nd pass
+	 build_wchmm2() used
+	 lcdset limited by word-pair constraint
+	short pause segmentation = off
+	fall back on search fail = off, returns search failure
+
+------------------------------------------------------------
+Decoding algorithm:
+
+	1st pass input processing = buffered, batch
+	1st pass method = 1-best approx. generating indexed trellis
+	output word confidence measure based on search-time scores
+
+------------------------------------------------------------
+FrontEnd:
+
+ Input stream:
+	             input type = feature vector sequence
+	           input source = plugin
+	   zero frames stripping = on
+	      reject short input = off
+	      reject  long input = off
+
+----------------------- System Information end -----------------------
+
+------
+### read waveform input
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6416] handles this request
+...............................................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6417] handles this request
+..................................................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 1, azimuth = 59.999920, elevation = 75.000038, sec = 1381605371, usec = 190665
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> からあげ定食 </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k a r a a g e t e: sh o k u | silE
+pass1_best_score: 1025.492798
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 232
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 747.232727
+
+................connection end
+ERROR: an error occured while recognition, terminate stream
+.................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 0, azimuth = -59.999920, elevation = 75.000038, sec = 1381605371, usec = 190659
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> ナタデココ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | n a t a d e k o k o | silE
+pass1_best_score: 1442.437744
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1256.205322
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6428] handles this request
+...............................................................................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6429] handles this request
+.......................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 3, azimuth = 59.999920, elevation = 75.000038, sec = 1381605371, usec = 974005
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> からあげ定食 </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k a r a a g e t e: sh o k u | silE
+pass1_best_score: 1325.291504
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 232
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1064.518677
+
+.....connection end
+ERROR: an error occured while recognition, terminate stream
+.......................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 2, azimuth = -59.999920, elevation = 75.000038, sec = 1381605371, usec = 972899
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> 焼き魚定食 </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | y a k i z a k a n a t e: sh o k u | silE
+pass1_best_score: 1390.228271
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1143.153931
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6430] handles this request
+..waiting connection...
+Stat: server-client: connect from 127.0.0.1
+....forked process [6431] handles this request
+...............................................................................................................................................................................................................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 4, azimuth = -59.999920, elevation = 75.000038, sec = 1381605372, usec = 733923
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> ナタデココ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | n a t a d e k o k o | silE
+pass1_best_score: 1537.926147
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1276.757568
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+.............................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 5, azimuth = 59.999920, elevation = 75.000038, sec = 1381605372, usec = 832080
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> 焼き魚定食 </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | y a k i z a k a n a t e: sh o k u | silE
+pass1_best_score: 1072.319580
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 232
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 849.665833
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6432] handles this request
+............................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6433] handles this request
+........................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 7, azimuth = 59.999920, elevation = 75.000038, sec = 1381605373, usec = 587509
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> からあげ定食 </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k a r a a g e t e: sh o k u | silE
+pass1_best_score: 862.797363
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 182
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 699.141296
+
+.connection end
+ERROR: an error occured while recognition, terminate stream
+...........................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 6, azimuth = 0.000000, elevation = 75.000038, sec = 1381605373, usec = 468858
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> 松阪牛ステーキ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | m a ts u z a k a gy u: s u t e: k i | silE
+pass1_best_score: 1304.969360
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 975.981140
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6438] handles this request
+..........................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 8, azimuth = 0.000000, elevation = 75.000038, sec = 1381605374, usec = 224382
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> カレーライス </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k a r e: r a i s u | silE
+pass1_best_score: 918.310669
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 548.734619
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6439] handles this request
+...............................................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6440] handles this request
+...............................................................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 10, azimuth = 59.999920, elevation = 75.000038, sec = 1381605374, usec = 763315
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> お好み焼き </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | o k o n o m i y a k i | silE
+pass1_best_score: 1266.006958
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 232
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1041.693604
+
+...connection end
+ERROR: an error occured while recognition, terminate stream
+.................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 9, azimuth = -59.999920, elevation = 75.000038, sec = 1381605374, usec = 763310
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> 本日のおすすめ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | h o N j i ts u n o o s u s u m e | silE
+pass1_best_score: 1823.968384
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1554.722778
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6448] handles this request
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6449] handles this request
+.....................................................................................................................................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 12, azimuth = -59.999920, elevation = 75.000038, sec = 1381605375, usec = 766051
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> プリン </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | p u r i N | silE
+pass1_best_score: 1006.162598
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 132
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 972.694214
+
+.........................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 11, azimuth = 0.000000, elevation = 75.000038, sec = 1381605375, usec = 456380
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> からあげ定食 </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k a r a a g e t e: sh o k u | silE
+pass1_best_score: 1251.635254
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1042.106445
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6450] handles this request
+........................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 13, azimuth = 0.000000, elevation = 75.000038, sec = 1381605376, usec = 184458
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> ペペロンチーノ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | p e p e r o N t i: n o | silE
+pass1_best_score: 784.149475
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 232
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 542.057495
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6451] handles this request
+..............................................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6452] handles this request
+.....................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 15, azimuth = -59.999920, elevation = 75.000038, sec = 1381605376, usec = 763132
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> ペペロンチーノ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | p e p e r o N t i: n o | silE
+pass1_best_score: 795.846863
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 182
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 606.475769
+
+..connection end
+ERROR: an error occured while recognition, terminate stream
+...........................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 14, azimuth = 59.999920, elevation = 75.000038, sec = 1381605376, usec = 662815
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> 焼きそば </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | y a k i s o b a | silE
+pass1_best_score: 2096.685547
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 2003.925049
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6458] handles this request
+...............................................................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6459] handles this request
+................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 17, azimuth = -59.999920, elevation = 75.000038, sec = 1381605377, usec = 452448
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> カルボナーラ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k a r u b o n a: r a | silE
+pass1_best_score: 672.962158
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 182
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 526.419556
+
+....connection end
+ERROR: an error occured while recognition, terminate stream
+.............................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 16, azimuth = 59.999920, elevation = 75.000038, sec = 1381605377, usec = 363033
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> ペペロンチーノ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | p e p e r o N t i: n o | silE
+pass1_best_score: 1702.768066
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1444.669312
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6460] handles this request
+.........................................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6461] handles this request
+............................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 19, azimuth = -59.999920, elevation = 75.000038, sec = 1381605378, usec = 148148
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> ナタデココ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | n a t a d e k o k o | silE
+pass1_best_score: 778.899292
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 182
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 639.886230
+
+............connection end
+ERROR: an error occured while recognition, terminate stream
+...............................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 18, azimuth = 59.999920, elevation = 75.000038, sec = 1381605378, usec = 50403
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> ハンバーガー </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | h a N b a: g a: | silE
+pass1_best_score: 1202.144409
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1011.621216
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6462] handles this request
+..........................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 20, azimuth = 0.000000, elevation = 75.000038, sec = 1381605378, usec = 837211
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> </s>
+pass1_best_wordseq: 0 1
+pass1_best_phonemeseq: silB | silE
+pass1_best_score: 3226.082275
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 3219.488525
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6463] handles this request
+......................................................................................................................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6464] handles this request
+........................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 22, azimuth = 59.999920, elevation = 75.000038, sec = 1381605379, usec = 420617
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> ハンバーガー </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | h a N b a: g a: | silE
+pass1_best_score: 1114.868408
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 232
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 963.247498
+..
+....connection end
+ERROR: an error occured while recognition, terminate stream
+................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 21, azimuth = -59.999920, elevation = 75.000038, sec = 1381605379, usec = 420612
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> カレーライス </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k a r e: r a i s u | silE
+pass1_best_score: 1102.466919
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 332
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 783.176270
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6465] handles this request
+......waiting connection...
+Stat: server-client: connect from 127.0.0.1
+..forked process [6466] handles this request
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 23, azimuth = -59.999920, elevation = 75.000038, sec = 1381605380, usec = 186258
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> フルーツ盛り合わせ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | f u r u: ts u m o r i a w a s e | silE
+pass1_best_score: 1243.064941
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 982.911926
+
+...connection end
+ERROR: an error occured while recognition, terminate stream
+.................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 24, azimuth = 59.999920, elevation = 75.000038, sec = 1381605380, usec = 271948
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> カレーライス </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k a r e: r a i s u | silE
+pass1_best_score: 1345.756592
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 232
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1225.580200
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6467] handles this request
+..........................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 25, azimuth = 0.000000, elevation = 75.000038, sec = 1381605380, usec = 985716
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> フルーツ盛り合わせ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | f u r u: ts u m o r i a w a s e | silE
+pass1_best_score: 1176.373169
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 784.188232
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6468] handles this request
+..........................................................................................................................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6469] handles this request
+............................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 27, azimuth = 59.999920, elevation = 75.000038, sec = 1381605381, usec = 659810
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> フライドポテト </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | f u r a i d o p o t e t o | silE
+pass1_best_score: 691.261658
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 182
+..sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 544.589905
+
+.....connection end
+ERROR: an error occured while recognition, terminate stream
+.....................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 26, azimuth = -59.999920, elevation = 75.000038, sec = 1381605381, usec = 558153
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> クリームブリュレ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k u r i: m u b u ry u r e | silE
+pass1_best_score: 2031.775757
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 332
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1679.051270
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6470] handles this request
+......................................................................................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6471] handles this request
+..............................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 29, azimuth = 59.999920, elevation = 75.000038, sec = 1381605382, usec = 440683
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> クリームブリュレ </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k u r i: m u b u ry u r e | silE
+pass1_best_score: 1104.216553
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 232
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 768.585571
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 28, azimuth = -59.999920, elevation = 75.000038, sec = 1381605382, usec = 330632
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> オレンジジュース </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | o r e N j i j u: s u | silE
+pass1_best_score: 2441.002441
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 332
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 2145.551758
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6472] handles this request
+........................................................................................waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6473] handles this request
+.............................................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 31, azimuth = 59.999920, elevation = 75.000038, sec = 1381605383, usec = 274164
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> アメリカンコーヒー </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | a m e r i k a N k o: h i: | silE
+pass1_best_score: 1251.274536
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 232
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 1067.435913
+
+......connection end
+ERROR: an error occured while recognition, terminate stream
+.........................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 30, azimuth = -59.999920, elevation = 75.000038, sec = 1381605383, usec = 170673
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> りんごジュース </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | r i N g o j u: s u | silE
+pass1_best_score: 2332.978760
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 332
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 2101.629883
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6474] handles this request
+..........................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 32, azimuth = 0.000000, elevation = 75.000038, sec = 1381605383, usec = 954785
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> からあげ定食 </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k a r a a g e t e: sh o k u | silE
+pass1_best_score: 1057.440308
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 690.432007
+
+connection end
+ERROR: an error occured while recognition, terminate stream
+waiting connection...
+Stat: server-client: connect from 127.0.0.1
+forked process [6475] handles this request
+..........................................................................................................................................................................................................................................................................................input name function was called
+STAT: multigram_exec_activate() hook = 2
+source_id = 33, azimuth = 0.000000, elevation = 75.000038, sec = 1381605384, usec = 566999
+### Recognition: 1st pass (LR beam)
+read_count < 0, read_count=-1, veclen=54
+pass1_best: <s> からあげ定食 </s>
+pass1_best_wordseq: 0 2 1
+pass1_best_phonemeseq: silB | k a r a a g e t e: sh o k u | silE
+pass1_best_score: 1089.109741
+### Recognition: 2nd pass (RL heuristic best-first)
+STAT: 00 _default: 2 generated, 2 pushed, 3 nodes popped in 282
+sentence1: <s> </s>
+wseq1: 0 1
+phseq1: silB | silE
+cmscore1: 1.000 1.000
+score1: 804.031189
+
+connection end
+ERROR: an error occured while recognition, terminate stream
