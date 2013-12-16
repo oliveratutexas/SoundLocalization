@@ -31,12 +31,12 @@
     <NetOutput name="OUTPUT_2" node="node_MAIN_LOOP_1" terminal="OUTPUT_2" object_type="any" description="No description available"/>
   </Network>
   <Network type="iterator" name="MAIN_LOOP">
-    <Node name="node_MultiFFT_1" type="MultiFFT" x="50.000000" y="-291.000000">
+    <Node name="node_MultiFFT_1" type="MultiFFT" x="101.000000" y="-350.000000">
       <Parameter name="LENGTH" type="int" value="512" description="The length of FFT."/>
       <Parameter name="WINDOW" type="string" value="CONJ" description="A window function for FFT. WINDOW should be &quot;CONJ&quot;."/>
       <Parameter name="WINDOW_LENGTH" type="int" value="512" description="The length of the window."/>
     </Node>
-    <Node name="node_Delay_1" type="Delay" x="-256.000000" y="87.000000">
+    <Node name="node_Delay_1" type="Delay" x="-367.000000" y="-263.000000">
       <Parameter name="DELAY" type="int" value="0" description="The delay"/>
     </Node>
     <Node name="node_Delay_2" type="Delay" x="-163.000000" y="-205.000000">
@@ -50,21 +50,21 @@
       <Parameter name="MAX_FREQUENCY" type="int" value="8000" description="Maximum frequency (Hz) [default: 8000]"/>
       <Parameter name="FBANK_COUNT" type="subnet_param" value="FBANK_COUNT" description="The number of filter banks."/>
     </Node>
-    <Node name="node_Delta_2" type="Delta" x="404.000000" y="1.000000">
+    <Node name="node_Delta_2" type="Delta" x="410.000000" y="32.000000">
       <Parameter name="FBANK_COUNT" type="int" value="14" description="The number of elements of the input feature vector."/>
     </Node>
     <Node name="node_LocalizeMUSIC_1" type="LocalizeMUSIC" x="237.000000" y="-283.000000">
-      <Parameter name="MUSIC_ALGORITHM" type="string" value="GSVD" description="Sound Source Localization Algorithm. If SEVD, NOISECM will be ignored"/>
-      <Parameter name="TF_CHANNEL_SELECTION" type="object" value="&lt;Vector&lt;int&gt; 0 1 2 3 4 5 6 7&gt;" description="Microphone channels for localization"/>
+      <Parameter name="MUSIC_ALGORITHM" type="string" value="SEVD" description="Sound Source Localization Algorithm. If SEVD, NOISECM will be ignored"/>
+      <Parameter name="TF_CHANNEL_SELECTION" type="object" value="&lt;Vector&lt;int&gt; 0 1 2 3 &gt;" description="Microphone channels for localization"/>
       <Parameter name="LENGTH" type="int" value="512" description="The length of a frame (per channel)."/>
       <Parameter name="SAMPLING_RATE" type="int" value="16000" description="Sampling Rate (Hz)."/>
       <Parameter name="A_MATRIX" type="subnet_param" value="A_MATRIX" description="Filename of a transfer function matrix."/>
       <Parameter name="WINDOW" type="int" value="50" description="The number of frames used for calculating a correlation function."/>
       <Parameter name="WINDOW_TYPE" type="string" value="FUTURE" description="Window selection to accumulate a correlation function. If PAST, the past WINDOW frames from the current frame are used for the accumulation. If MIDDLE, the current frame will be the middle of the accumulated frames. If FUTURE, the future WINDOW frames from the current frame are used for the accumulation. FUTURE is the default from version 1.0, but this makes a delay since we have to wait for the future information. PAST generates a internal buffers for the accumulation, which realizes no delay for localization."/>
       <Parameter name="PERIOD" type="int" value="50" description="The number of frames used for calculating a correlation function."/>
-      <Parameter name="NUM_SOURCE" type="int" value="3" description="Number of sources, which should be less than number of channels."/>
-      <Parameter name="MIN_DEG" type="int" value="-180" description="source direction (lower)."/>
-      <Parameter name="MAX_DEG" type="int" value="180" description="source direction (higher)."/>
+      <Parameter name="NUM_SOURCE" type="int" value="1" description="Number of sources, which should be less than number of channels."/>
+      <Parameter name="MIN_DEG" type="int" value="-90" description="source direction (lower)."/>
+      <Parameter name="MAX_DEG" type="int" value="90" description="source direction (higher)."/>
       <Parameter name="LOWER_BOUND_FREQUENCY" type="int" value="500" description="Lower bound of frequency (Hz) used for correlation function calculation."/>
       <Parameter name="UPPER_BOUND_FREQUENCY" type="int" value="2800" description="Upper bound of frequency (Hz) used for correlation function calculation."/>
       <Parameter name="SPECTRUM_WEIGHT_TYPE" type="string" value="Uniform" description="MUSIC spectrum weight for each frequency bin."/>
@@ -81,7 +81,7 @@
       <Parameter name="MAXNUM_OUT_PEAKS" type="int" value="-1" description="Maximum number of output peaks. If MAXNUM_OUT_PEAKS = NUM_SOURCE, this is compatible with HARK version 1.0. If MAXNUM_OUT_PEAKS = 0, all local maxima are output. If MAXNUM_OUT_PEAKS &lt; 0, MAXNUM_OUT_PEAKS is set to NUM_SOURCE. If MAXNUM_OUT_PEAKS &gt; 0, number of output peaks is limited to MAXNUM_OUT_PEAKS."/>
       <Parameter name="DEBUG" type="bool" value="false" description="Debug option. If the parameter is true, this node outputs sound localization results to a standard output."/>
     </Node>
-    <Node name="node_SourceIntervalExtender_1" type="SourceIntervalExtender" x="517.000000" y="-283.000000">
+    <Node name="node_SourceIntervalExtender_1" type="SourceIntervalExtender" x="644.000000" y="-303.000000">
       <Parameter name="PREROLL_LENGTH" type="int" value="50" description="The start of the source interval is extended forward by preroll length."/>
     </Node>
     <Node name="node_SourceTracker_1" type="SourceTracker" x="363.000000" y="-283.000000">
@@ -98,7 +98,7 @@
       <Parameter name="NORMALIZATION_MODE" type="string" value="SPECTRAL" description="The domain in which normalization is performed. CEPSTRAL or SPECTRAL."/>
       <Parameter name="USE_POWER" type="bool" value="true" description="Use power feature if true."/>
     </Node>
-    <Node name="node_FeatureRemover_2" type="FeatureRemover" x="520.000000" y="1.000000">
+    <Node name="node_FeatureRemover_2" type="FeatureRemover" x="617.000000" y="-9.000000">
       <Parameter name="SELECTOR" type="object" value="&lt;Vector&lt;int&gt; 13&gt;" description="Set indices of a feature vector to remove like &lt;Vector&lt;int&gt; 13&gt;."/>
     </Node>
     <Node name="node_PreEmphasis_2" type="PreEmphasis" x="413.000000" y="-67.000000">
@@ -107,7 +107,7 @@
       <Parameter name="PREEMCOEF" type="float" value="0.97" description="pre-emphasis coefficient"/>
       <Parameter name="INPUT_TYPE" type="string" value="WAV" description="WAV or SPECTRUM"/>
     </Node>
-    <Node name="node_Synthesize_3" type="Synthesize" x="763.000000" y="-198.000000">
+    <Node name="node_Synthesize_3" type="Synthesize" x="763.000000" y="-197.000000">
       <Parameter name="LENGTH" type="int" value="512" description="Size of window length."/>
       <Parameter name="ADVANCE" type="int" value="160" description="The length between a frame and a previous frame."/>
       <Parameter name="SAMPLING_RATE" type="int" value="16000" description="Sampling rate (Hz)"/>
@@ -116,7 +116,7 @@
       <Parameter name="WINDOW" type="string" value="CONJ" description="A window function for FFT. WINDOW should be RECTANGLE, CONJ, or HAMMING."/>
       <Parameter name="OUTPUT_GAIN" type="float" value="1.0" description="Output gain which is multiplied to the output of the waveform."/>
     </Node>
-    <Node name="node_GHDSS_1" type="GHDSS" x="63.000000" y="-214.000000">
+    <Node name="node_GHDSS_1" type="GHDSS" x="62.000000" y="-214.000000">
       <Parameter name="LENGTH" type="subnet_param" value="LENGTH" description="The frame length of each channel (in samples) [default: 512]."/>
       <Parameter name="ADVANCE" type="subnet_param" value="ADVANCE" description="The shift length beween adjacent frames (in samples)[default: 160]."/>
       <Parameter name="SAMPLING_RATE" type="subnet_param" value="SAMPLING_RATE" description="Sampling rate (Hz) [default: 16000]."/>
@@ -148,7 +148,7 @@
       <Parameter name="WINDOW" type="string" value="HAMMING" description="A window function for FFT. WINDOW should be CONJ, HAMMING, or RECTANGLE."/>
       <Parameter name="WINDOW_LENGTH" type="int" value="400" description="The length of the window."/>
     </Node>
-    <Node name="node_CalcSpecAddPower_2" type="CalcSpecAddPower" x="229.000000" y="-18.000000"/>
+    <Node name="node_CalcSpecAddPower_2" type="CalcSpecAddPower" x="230.000000" y="-17.000000"/>
     <Node name="node_CalcSpecSubGain_2" type="CalcSpecSubGain" x="84.000000" y="-99.000000">
       <Parameter name="ALPHA" type="float" value="1.0" description="Overestimation factor."/>
       <Parameter name="BETA" type="float" value="0.0" description="Spectral floor."/>
@@ -169,21 +169,11 @@
     <Node name="node_PowerCalcForMap_2" type="PowerCalcForMap" x="203.000000" y="-187.000000">
       <Parameter name="POWER_TYPE" type="string" value="POW" description="Measure for computing the POW or MAG (i.e. power or magnitude) of the complex spectrum [default: POW]"/>
     </Node>
-    <Node name="node_SpectralGainFilter_2" type="SpectralGainFilter" x="497.000000" y="-198.000000"/>
-    <Node name="node_WhiteNoiseAdder_2" type="WhiteNoiseAdder" x="637.000000" y="-198.000000">
-      <Parameter name="LENGTH" type="int" value="512" description="The size of window length."/>
-      <Parameter name="WN_LEVEL" type="float" value="100" description="An amplitude of white noise."/>
+    <Node name="node_SpectralGainFilter_2" type="SpectralGainFilter" x="433.000000" y="-216.000000"/>
+    <Node name="node_ChannelSelector_1" type="ChannelSelector" x="-117.000000" y="-341.000000">
+      <Parameter name="SELECTOR" type="object" value="&lt;Vector&lt;int&gt; 0 1 2 3&gt;" description="Channel selection setting which is a vector consisting of channel IDs (ID starts with 0). When the first three channels are selected from four channels, this should be set to &lt;Vector&lt;int&gt; 0 1 2&gt;."/>
     </Node>
-    <Node name="node_DisplayLocalization_1" type="DisplayLocalization" x="499.000000" y="-364.000000">
-      <Parameter name="WINDOW_NAME" type="string" value="Source Location" description="Window name of the time-azimuth map [default: Window name]"/>
-      <Parameter name="WINDOW_LENGTH" type="int" value="1000" description="Window length to show at the same time [sample]"/>
-      <Parameter name="VERTICAL_RANGE" type="object" value="&lt;Vector&lt;int&gt; -180 180&gt;" description="Plot range of the vertical axis"/>
-      <Parameter name="PLOT_TYPE" type="string" value="AZIMUTH" description="Coordinate setting for the plotting"/>
-    </Node>
-    <Node name="node_ChannelSelector_1" type="ChannelSelector" x="-73.000000" y="-291.000000">
-      <Parameter name="SELECTOR" type="object" value="&lt;Vector&lt;int&gt; 0 2 4 6 9 11 13 15&gt;" description="Channel selection setting which is a vector consisting of channel IDs (ID starts with 0). When the first three channels are selected from four channels, this should be set to &lt;Vector&lt;int&gt; 0 1 2&gt;."/>
-    </Node>
-    <Node name="node_MultiGain_1" type="MultiGain" x="-199.000000" y="-291.000000">
+    <Node name="node_MultiGain_1" type="MultiGain" x="-338.000000" y="-338.000000">
       <Parameter name="GAIN" type="float" value="0.005" description="Gain factor."/>
     </Node>
     <Node name="node_SpeechRecognitionSMNClient_1" type="SpeechRecognitionSMNClient" x="783.000000" y="32.000000">
@@ -198,7 +188,7 @@
       <Parameter name="SAMPLING_RATE" type="int" value="16000" description="Sampling rate (in samples)[default: 16000]."/>
       <Parameter name="BITS" type="string" value="int16" description="Bit format of samples. int16 , int24 and float32 bits are supported."/>
     </Node>
-    <Node name="node_AudioStreamFromWave_1" type="AudioStreamFromWave" x="-436.000000" y="-284.000000">
+    <Node name="node_AudioStreamFromWave_1" type="AudioStreamFromWave" x="-773.000000" y="-303.000000">
       <Parameter name="LENGTH" type="int" value="512" description="The frame length of each channel (in samples) [default: 512]."/>
       <Parameter name="ADVANCE" type="int" value="160" description="The shift length beween adjacent frames (in samples)[default: 160]."/>
       <Parameter name="USE_WAIT" type="bool" value="false" description="If true, real recording is simulated [default: false]."/>
@@ -220,41 +210,48 @@
       <Parameter name="SAMPLING_RATE" type="int" value="16000" description="The time increment is caluculated as ADVANCE / SAMPLING_RATE"/>
       <Parameter name="ROS_FRAME_ID" type="string" value="HarkRosFrameID" description="ROS frame_id of the message header"/>
     </Node>
+    <Node name="node_AudioStreamFromMic_1" type="AudioStreamFromMic" x="-688.000000" y="-226.000000">
+      <Parameter name="LENGTH" type="int" value="512" description="The frame length of each channel (in samples) [default: 512]."/>
+      <Parameter name="ADVANCE" type="int" value="160" description="The shift length beween adjacent frames (in samples)[default: 160]."/>
+      <Parameter name="CHANNEL_COUNT" type="int" value="4" description="The number of channels."/>
+      <Parameter name="SAMPLING_RATE" type="int" value="16000" description="Sampling rate (Hz) [default: 16000]."/>
+      <Parameter name="DEVICETYPE" type="string" value="ALSA" description="Device type [default: WS]."/>
+      <Parameter name="GAIN" type="string" value="0dB" description="capture gain (dB)  [default: 0dB]."/>
+      <Parameter name="DEVICE" type="string" value="plughw:1" description="Device name or IP address [default: 127.0.0.1]"/>
+    </Node>
     <Link from="node_MultiFFT_1" output="OUTPUT" to="node_LocalizeMUSIC_1" input="INPUT"/>
     <Link from="node_LocalizeMUSIC_1" output="OUTPUT" to="node_SourceTracker_1" input="INPUT"/>
     <Link from="node_SourceTracker_1" output="OUTPUT" to="node_SourceIntervalExtender_1" input="SOURCES"/>
     <Link from="node_MelFilterBank_2" output="OUTPUT" to="node_MSLSExtraction_2" input="FBANK"/>
-    <Link from="node_MSLSExtraction_2" output="OUTPUT" to="node_Delta_2" input="INPUT">920 -75 946 -75 946 -25 356 -25 356 1 382.5 1 </Link>
+    <Link from="node_MSLSExtraction_2" output="OUTPUT" to="node_Delta_2" input="INPUT">979.5 -75 946 -75 946 -25 356 -25 356 1 341.5 32 </Link>
     <Link from="node_Delta_2" output="OUTPUT" to="node_FeatureRemover_2" input="INPUT"/>
-    <Link from="node_MultiFFT_1" output="OUTPUT" to="node_GHDSS_1" input="INPUT_FRAMES">82.5 -291 95 -291 95 -253 -105 -253 -105 -220 -73 -221.5 </Link>
+    <Link from="node_MultiFFT_1" output="OUTPUT" to="node_GHDSS_1" input="INPUT_FRAMES">192.5 -350 95 -291 95 -253 -105 -253 -105 -220 -75 -221.5 </Link>
     <Link from="node_Delay_2" output="OUTPUT" to="node_GHDSS_1" input="INPUT_SOURCES"/>
-    <Link from="node_Synthesize_3" output="OUTPUT" to="node_PreEmphasis_2" input="INPUT">800.5 -198 837 -198 837 -131 349 -131 349 -66 369 -67 </Link>
+    <Link from="node_Synthesize_3" output="OUTPUT" to="node_PreEmphasis_2" input="INPUT">861.5 -197 837 -198 837 -131 349 -131 349 -66 320 -67 </Link>
     <Link from="node_PreEmphasis_2" output="OUTPUT" to="node_MultiFFT_3" input="INPUT"/>
     <Link from="node_MultiFFT_3" output="OUTPUT" to="node_MelFilterBank_2" input="INPUT">560.5 -67 579 -67 579 -102 600 -101 </Link>
     <Link from="node_MultiFFT_3" output="OUTPUT" to="node_MSLSExtraction_2" input="SPECTRUM"/>
-    <Link from="node_CalcSpecAddPower_2" output="OUTPUT_POWER_SPEC" to="node_CalcSpecSubGain_2" input="NOISE_SPEC">293.5 -18 311 -18 311 -53 -135 -53 -135 -92 -106 -91.5 </Link>
+    <Link from="node_CalcSpecAddPower_2" output="OUTPUT_POWER_SPEC" to="node_CalcSpecSubGain_2" input="NOISE_SPEC">442 -17 311 -18 311 -53 -135 -53 -135 -92 -110.5 -91.5 </Link>
     <Link from="node_EstimateLeak_1" output="LEAK_POWER_SPEC" to="node_CalcSpecAddPower_2" input="INPUT_POWER_SPEC2"/>
     <Link from="node_HRLE_2" output="NOISE_SPEC" to="node_CalcSpecAddPower_2" input="INPUT_POWER_SPEC1"/>
     <Link from="node_PowerCalcForMap_2" output="OUTPUT" to="node_HRLE_2" input="INPUT_SPEC">264 -187 298 -187 298 -135 -170 -135 -170 -35 -132.5 -34 </Link>
     <Link from="node_PowerCalcForMap_2" output="OUTPUT" to="node_EstimateLeak_1" input="INPUT_POWER_SPEC">264 -187 298 -187 298 -135 -214 -135 -214 8 -130.5 8 </Link>
     <Link from="node_GHDSS_1" output="OUTPUT" to="node_PowerCalcForMap_2" input="INPUT"/>
-    <Link from="node_CalcSpecSubGain_2" output="VOICE_PROB" to="node_SpectralGainFilter_2" input="VOICE_PROB">288 -114 319 -114 319 -198 350 -198 </Link>
-    <Link from="node_CalcSpecSubGain_2" output="GAIN" to="node_SpectralGainFilter_2" input="GAIN">288 -99 331 -99 331 -184 350 -183 </Link>
+    <Link from="node_CalcSpecSubGain_2" output="VOICE_PROB" to="node_SpectralGainFilter_2" input="VOICE_PROB">290.5 -114 319 -114 319 -198 285 -216 </Link>
+    <Link from="node_CalcSpecSubGain_2" output="GAIN" to="node_SpectralGainFilter_2" input="GAIN">290.5 -99 331 -99 331 -184 285 -201 </Link>
     <Link from="node_GHDSS_1" output="OUTPUT" to="node_SpectralGainFilter_2" input="INPUT_SPEC"/>
-    <Link from="node_SpectralGainFilter_2" output="OUTPUT_SPEC" to="node_WhiteNoiseAdder_2" input="INPUT"/>
-    <Link from="node_WhiteNoiseAdder_2" output="OUTPUT" to="node_Synthesize_3" input="INPUT"/>
     <Link from="node_ChannelSelector_1" output="OUTPUT" to="node_MultiFFT_1" input="INPUT"/>
     <Link from="node_MultiGain_1" output="OUTPUT" to="node_ChannelSelector_1" input="INPUT"/>
     <Link from="node_FeatureRemover_2" output="OUTPUT" to="node_SpeechRecognitionSMNClient_1" input="FEATURES"/>
     <Link from="node_FeatureRemover_2" output="OUTPUT" to="node_SpeechRecognitionSMNClient_1" input="MASKS"/>
     <Link from="node_Delay_2" output="OUTPUT" to="node_SpeechRecognitionSMNClient_1" input="SOURCES">-141 -205 -110 -204 -108 -170 -235 -170 -235 48 615 47 </Link>
-    <Link from="node_SourceIntervalExtender_1" output="OUTPUT" to="node_Delay_2" input="INPUT">593.5 -283 622 -283 622 -243 -216 -243 -216 -205 -185 -205 </Link>
-    <Link from="node_AudioStreamFromWave_1" output="AUDIO" to="node_MultiGain_1" input="INPUT"/>
-    <Link from="node_AudioStreamFromWave_1" output="NOT_EOF" to="node_Delay_1" input="INPUT"/>
+    <Link from="node_SourceIntervalExtender_1" output="OUTPUT" to="node_Delay_2" input="INPUT">783 -303 622 -283 622 -243 -216 -243 -216 -205 -233 -205 </Link>
     <Link from="node_PowerCalcForMap_2" output="OUTPUT" to="node_CalcSpecSubGain_2" input="INPUT_POWER_SPEC">264 -187 297 -187 297 -134 -138 -134 -138 -107 -106 -106.5 </Link>
     <Link from="node_Synthesize_3" output="OUTPUT" to="node_SaveWavePCM_3" input="INPUT"/>
-    <Link from="node_SourceTracker_1" output="OUTPUT" to="node_DisplayLocalization_1" input="SOURCES"/>
     <Link from="node_SpeechRecognitionSMNClient_1" output="OUTPUT" to="node_RosHarkMsgsPublisher_1" input="SRC_INFO"/>
+    <Link from="node_AudioStreamFromMic_1" output="NOT_EOF" to="node_Delay_1" input="INPUT"/>
+    <Link from="node_AudioStreamFromMic_1" output="AUDIO" to="node_MultiGain_1" input="INPUT"/>
+    <Link from="node_SpectralGainFilter_2" output="OUTPUT_SPEC" to="node_Synthesize_3" input="INPUT"/>
     <NetCondition name="CONDITION" node="node_Delay_1" terminal="OUTPUT"/>
     <NetInput name="INPUT" node="node_AudioStreamFromWave_1" terminal="INPUT" object_type="Stream" description="An audio input stream (IStream)."/>
     <NetOutput name="OUTPUT_to_julius" node="node_SpeechRecognitionSMNClient_1" terminal="OUTPUT" object_type="Vector&lt;ObjectRef&gt;" description="The same as SOURCES."/>
