@@ -17,7 +17,7 @@ def talker():
             while not sentence.startswith('sentence1'):
                 sentence = sys.stdin.readline().strip('\n')
                 if sentence.startswith('sentence1:'):
-                    message = "%s; %s; %s; %s" % (params[0][12:], sentence[15:-5], params[1][11:], rospy.get_time())
+                    message = "%s;%s;%s;%s" % (params[0][12:], sentence[15:-5], params[1][11:], rospy.get_time())
                     pub_sentence.publish(String(message))
                     rospy.loginfo(sentence)
         
