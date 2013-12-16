@@ -14,7 +14,7 @@ right = None
 def callback(speech_data):
     rospy.loginfo(speech_data.sentence)
     global is_playing, time, left, right
-    if not is_playing and speech_data.sentence.startswith('Yes'):
+    if not is_playing and speech_data.sentence.startswith('lets-play'):
         is_playing = True
         left = None
         right = None
@@ -25,7 +25,8 @@ def callback(speech_data):
         rospy.sleep(1.0)
         rospy.loginfo("Speak!")
         time = speech_data.rostime
-    if is_playing:
+	rospy.loginfo(time)
+    if is_playing and rospy.get_time() - time > 2:
         if speech_data.azimuth < -10 and right is None:
             right = speech_data.sentence
         elif speech_data.azimuth > 10 and left is None:
@@ -33,6 +34,11 @@ def callback(speech_data):
         if left is not None and right is not None:
             rospy.loginfo("The game is successful")
             is_playing = False
+    if rospy.get_time() - time > 2:
+	rospy.loginfo("The current game has timed out")
+	is_playing = False
+	left = None
+	right = None
 
         
 
@@ -41,9 +47,6 @@ if __name__ == '__main__':
         while not rospy.is_shutdown():
             rospy.init_node('voice_rps', anonymous=True)
             rospy.Subscriber("/Speech", Speech, callback)
-            if rospy.get_time() - time > 2 and is_playing:
-                is_playing = False
-                rospy.loginfo("The current game has timed out")
             rospy.spin()
             
     except KeyboardInterrupt:
